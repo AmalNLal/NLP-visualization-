@@ -1,10 +1,10 @@
-# Test Task
-
-## Overview
-Extracts chemical substances and compounds from DBpedia Knowledge Graph and stores it into a .tsv file.
+# Job Interview Task
 
 ## Installation
 - pip install -r requirements.txt
+- python Main.py
+- 
+## Overview
+Using NLP to form clusters on natural language dataset.
 
-## Executing
-- python main.py
+
