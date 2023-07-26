@@ -81,7 +81,7 @@ plt.scatter(pca_vectors[:, 0], pca_vectors[:, 1])
 plt.title('PCA Visualization')
 plt.xlabel('Principal Component 1')
 plt.ylabel('Principal Component 2')
-plt.show()
+plt.savefig()
 
 
 # In[7]:
@@ -97,7 +97,7 @@ plt.colorbar()
 plt.title('Clusters')
 plt.xlabel('Dimension 1')
 plt.ylabel('Dimension 2')
-plt.show()
+plt.savefig()
 
 
 # In[ ]:
