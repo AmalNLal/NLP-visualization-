@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 import pandas as pd
 from gensim.models import Word2Vec
@@ -15,16 +13,10 @@ from nltk.corpus import stopwords
 import re
 
 
-# In[2]:
-
-
 data=pd.read_csv('dataset.csv')
 
 
-# In[3]:
-
-
-# Define the default stopwords and lemmatizer
+# Defining the default stopwords and lemmatizer
 default_stopwords = set(stopwords.words('english'))
 
 def preprocess_data(text):
@@ -43,9 +35,6 @@ data['Preprocessed Term'] = data['Search Term'].apply(preprocess_data)
 print(data.head())
 
 
-# In[4]:
-
-
 #Training the model
 preprocessed_texts=[text.split() for text in data['Preprocessed Term']]
 model=Word2Vec(preprocessed_texts ,vector_size=100,window=5,min_count=1,workers=4)
@@ -54,10 +43,7 @@ model=Word2Vec(preprocessed_texts ,vector_size=100,window=5,min_count=1,workers=
 data['Vector Terms']=data['Preprocessed Term'].apply(lambda text:[model.wv[word] for word in text.split() if word in model.wv])
 
 
-# In[5]:
-
-
-# Compute the mean vector for each text
+#Computing the mean vector for each text
 text_vectors = []
 for vec_list in data['Vector Terms']:
     if len(vec_list) > 0:
@@ -66,9 +52,6 @@ for vec_list in data['Vector Terms']:
 
 # Convert list of vectors to numpy array
 text_vectors = np.array(text_vectors)
-
-
-# In[6]:
 
 
 # Applying dimensionality reduction using PCA
@@ -83,25 +66,15 @@ plt.xlabel('Principal Component 1')
 plt.ylabel('Principal Component 2')
 plt.savefig()
 
-
-# In[7]:
-
-
-# Perform K-means clustering
+# Performing K-means clustering
 kmeans = KMeans(n_clusters=3, random_state=42)
 clusters = kmeans.fit_predict(pca_vectors)
 
-# Visualize the clusters in a 2D plot
+# Visualizing the clusters in a 2D plot
 plt.scatter(pca_vectors[:, 0], pca_vectors[:, 1], c=clusters, cmap='viridis')
 plt.colorbar()
 plt.title('Clusters')
 plt.xlabel('Dimension 1')
 plt.ylabel('Dimension 2')
 plt.savefig()
-
-
-# In[ ]:
-
-
-
 
